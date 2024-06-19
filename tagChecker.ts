@@ -1,6 +1,6 @@
 // tagChecker.ts
 class TagChecker {
-    static checkTags(paragraph: string): string {   const tagPattern = /<\/?[A-Z]>/g;
+    static checkTags(paragraph: string): string {   const tagPattern = /<\/?[A-Za-z][\w:-]*>/g;
         const tags = paragraph.match(tagPattern);
         
         if (!tags) {
