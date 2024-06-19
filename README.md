@@ -11,10 +11,13 @@ This program checks if the tags in a paragraph are properly nested and matched.
    git clone https://github.com/cw2708/Tag-Checker.git
    cd Tag-Checker
 3. Install TypeScript and the necessary dependencies.
+   ```sh
     npm install
 4. Compile the TypeScript code.
+   ```sh
     npx tsc tagChecker.ts
 5. Run the compiled JavaScript file.
+   ```sh
     node tagChecker.js  
 
     Input Example:
