@@ -9,28 +9,23 @@ class TagChecker {
 
         const stack: string[] = [];
 
+
         for (let i = 0; i < tags.length; i++) {
-            const tag = tags[i];
-            
-            if (tag[1] !== '/') {
-                stack.push(tag);
-            } else {
-                if (stack.length === 0) {
-                    return `Expected # found ${tag}`;
-                }
+            const currentTag = tags[i];
+            let isClosingTag = false;
 
-                const lastTag = stack.pop();
-                
-                if (!lastTag) {
-                    return "Unexpected empty stack";
-                }
-
-                const tagName = lastTag.slice(1, -1); // Extract tag name safely
+            if (currentTag[1] === '/') {
+                isClosingTag = true;
+                const tagName = currentTag.slice(2, -1);
                 const expectedTag = `</${tagName}>`;
-
-                if (tag !== expectedTag) {
-                    return `Expected ${expectedTag} found ${tag}`;
+                if (stack.length === 0 || stack[stack.length - 1] !== expectedTag) {
+                    return `Expected ${expectedTag} found ${currentTag}`;
                 }
+                stack.pop();
+            } else {
+                const tagName = currentTag.slice(1, -1);
+                const openingTag = `<${tagName}>`;
+                stack.push(openingTag);
             }
         }
 
@@ -39,7 +34,7 @@ class TagChecker {
             if (!lastTag) {
                 return "Unexpected empty stack";
             }
-            const tagName = lastTag.slice(1, -1); // Extract tag name safely
+            const tagName = lastTag.slice(1, -1);
             return `Expected </${tagName}> found #`;
         }
 
